@@ -1,0 +1,343 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BASE — Sistema Crema Cálido
+   ─────────────────────────────────────────────────────────────────────────── */
+@layer base {
+    :root {
+        --font-playfair: "Playfair Display", serif;
+        --font-dm-sans: "DM Sans", sans-serif;
+
+        /* Tokens semánticos para referencia fácil */
+        --bg-primary: #faf9f6;
+        --bg-secondary: #f5f5f5;
+        --bg-accent: #faf0e6;
+        --border-light: #e8dcc4;
+        --text-heading: #1a1a1a;
+        --text-body: #2d2d2d;
+        --text-muted: #5a5a5a;
+        --text-subtle: #8a8a8a;
+        --accent-brown: #8b7355;
+        --link-brown: #6b5541;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        background-color: #faf9f6; /* cream-deep */
+        color: #2d2d2d; /* ink-700 */
+        font-family: var(--font-dm-sans), system-ui, sans-serif;
+        font-feature-settings:
+            "rlig" 1,
+            "calt" 1,
+            "kern" 1;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Selección de texto elegante */
+    ::selection {
+        background: rgba(139, 115, 85, 0.18);
+        color: #1a1a1a;
+    }
+
+    /* Scrollbar refinada */
+    ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #faf9f6;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #e8dcc4;
+        border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #d4b896;
+    }
+
+    /* Focus ring accesible y elegante — ratio 3:1 garantizado */
+    *:focus-visible {
+        outline: 2px solid #6b5541;
+        outline-offset: 3px;
+        border-radius: 4px;
+    }
+
+    /* Encabezados con Playfair Display */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-playfair), Georgia, serif;
+        color: #1a1a1a;
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+    }
+
+    h1 {
+        font-size: clamp(2.25rem, 5vw, 4rem);
+    }
+    h2 {
+        font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    }
+    h3 {
+        font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    }
+
+    /* Links base */
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Imágenes */
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    /* Párrafos */
+    p {
+        line-height: 1.6;
+        color: #5a5a5a;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   COMPONENTS — Clases reutilizables del sistema de diseño
+   ─────────────────────────────────────────────────────────────────────────── */
+@layer components {
+    /* ── Botones ────────────────────────────────────────────────────────────── */
+
+    /* Primario: Fondo #E8DCC4, texto #1A1A1A, hover #D4C4A8 */
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2
+           px-6 py-3 rounded-btn
+           bg-cream-dark text-ink-900 font-semibold text-body-sm
+           border border-cream-dark
+           transition-all duration-250
+           hover:bg-cream-hover hover:border-cream-hover
+           focus-visible:outline-2 focus-visible:outline-offset-2;
+        outline-color: #6b5541;
+    }
+
+    /* CTA: Fondo #D4B896, texto #1A1A1A — máxima llamada a la acción */
+    .btn-cta {
+        @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-btn
+           bg-cream-cta text-ink-900 font-semibold text-body-sm
+           transition-all duration-250
+           hover:bg-cream-hover
+           shadow-cream-sm hover:shadow-cream
+           focus-visible:outline-2 focus-visible:outline-offset-2;
+        outline-color: #6b5541;
+    }
+
+    /* Secundario: Transparente, borde sutil */
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2
+           px-6 py-3 rounded-btn
+           bg-transparent text-ink-500 font-semibold text-body-sm
+           border border-cream-dark
+           transition-all duration-250
+           hover:bg-cream-linen hover:text-ink-700
+           focus-visible:outline-2 focus-visible:outline-offset-2;
+        outline-color: #6b5541;
+    }
+
+    /* ── Cards ──────────────────────────────────────────────────────────────── */
+
+    /* Card estándar */
+    .card {
+        @apply bg-white border border-cream-dark rounded-card
+           shadow-card transition-shadow duration-250
+           hover:shadow-card-hover;
+    }
+
+    /* Card elevada con fondo crema */
+    .card-elevated {
+        @apply bg-cream-base border border-cream-dark rounded-card
+           shadow-card transition-all duration-250
+           hover:shadow-card-hover hover:bg-cream-linen;
+    }
+
+    /* Card de navegación (beige → linen en hover) */
+    .card-nav {
+        @apply bg-cream-beige border border-cream-dark rounded-card-sm
+           transition-all duration-250
+           hover:bg-cream-linen;
+    }
+
+    /* ── Secciones ──────────────────────────────────────────────────────────── */
+
+    .section-base {
+        @apply py-20 md:py-28 lg:py-32 bg-cream-deep;
+    }
+
+    .section-alt {
+        @apply py-20 md:py-28 lg:py-32 bg-cream-bone;
+    }
+
+    .section-accent {
+        @apply py-20 md:py-28 lg:py-32 bg-cream-linen;
+    }
+
+    .section-warm {
+        @apply py-20 md:py-28 lg:py-32 bg-cream-base;
+    }
+
+    /* Container estándar */
+    .container-site {
+        @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
+    }
+
+    /* ── Separadores ────────────────────────────────────────────────────────── */
+
+    .divider {
+        @apply h-px bg-separator-gradient my-0;
+    }
+
+    /* ── Tipografía especial ─────────────────────────────────────────────────── */
+
+    /* Eyebrow / overline label
+     * Usa ink-darkbrown (#6b5541) → ratio 6.9:1 vs #FAF9F6, cumple WCAG AA para texto 12px
+     * text-ink-brown (#8B7355) solo da 4.3:1 — falla AA en text-caption (12px) */
+    .eyebrow {
+        @apply text-caption font-semibold tracking-[0.15em] uppercase;
+        color: #6b5541; /* ink-darkbrown: ratio 6.9:1 vs cream-deep */
+    }
+
+    /* Texto con gradiente cálido */
+    .text-warm {
+        background: linear-gradient(
+            135deg,
+            #8b7355 0%,
+            #6b5541 50%,
+            #8b7355 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* ── Glassmorphism Cálido (modales / overlays) ──────────────────────────── */
+
+    .glass-warm {
+        background: rgba(255, 255, 240, 0.92); /* ivory al 92% */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(232, 220, 196, 0.6);
+        box-shadow: 0 16px 40px rgba(139, 115, 85, 0.12);
+    }
+
+    /* ── Badge / Chip ───────────────────────────────────────────────────────── */
+
+    .badge-warm {
+        @apply inline-flex items-center gap-1.5
+           px-3 py-1 rounded-full
+           bg-cream-champagne text-ink-700
+           text-caption font-semibold
+           border border-cream-dark;
+    }
+
+    /* ── Icono de feather / línea fina wrapper ──────────────────────────────── */
+
+    .icon-circle {
+        @apply w-12 h-12 rounded-full bg-cream-champagne
+           flex items-center justify-center
+           text-ink-brown border border-cream-dark
+           transition-colors duration-250;
+    }
+
+    .icon-circle:hover {
+        @apply bg-cream-dark;
+    }
+
+    /* ── Input / Form ──────────────────────────────────────────────────────── */
+
+    .input-warm {
+        @apply w-full px-4 py-3 rounded-card-sm
+           bg-white border border-cream-dark
+           text-ink-700 text-body-sm
+           placeholder:text-ink-300
+           transition-all duration-250
+           focus:outline-none focus:border-ink-brown focus:ring-1;
+        --tw-ring-color: #8b7355;
+    }
+
+    .input-warm:focus {
+        box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.2);
+    }
+
+    /* ── Stats badge ─────────────────────────────────────────────────────────── */
+
+    .stat-card {
+        @apply flex flex-col items-center justify-center
+           py-8 px-6 rounded-card
+           bg-cream-ivory border border-cream-dark;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITIES — Helpers adicionales
+   ─────────────────────────────────────────────────────────────────────────── */
+@layer utilities {
+    /* Ratio de aspecto para imágenes */
+    .aspect-gallery {
+        aspect-ratio: 4 / 3;
+    }
+    .aspect-portrait {
+        aspect-ratio: 3 / 4;
+    }
+    .aspect-hero {
+        aspect-ratio: 16 / 9;
+    }
+
+    /* Overlay cálido sobre imágenes */
+    .overlay-cream {
+        position: relative;
+    }
+    .overlay-cream::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba(250, 249, 246, 0.1) 0%,
+            rgba(250, 249, 246, 0.7) 100%
+        );
+        pointer-events: none;
+    }
+
+    /* Saturación reducida para armonía con paleta crema */
+    .img-warm {
+        filter: saturate(0.88) brightness(1.02);
+    }
+
+    /* Grid decorativo de fondo */
+    .bg-grid {
+        background-image:
+            linear-gradient(rgba(232, 220, 196, 0.2) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(232, 220, 196, 0.2) 1px,
+                transparent 1px
+            );
+        background-size: 32px 32px;
+    }
+
+    /* Animación entrada texto */
+    .animate-in {
+        animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+}
